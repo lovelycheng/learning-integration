@@ -31,8 +31,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dubbo-samples-provider</module>
-        <module>dubbo-samples-consumer</module>
+        <module>dubbo-provider</module>
+        <module>dubbo-consumer</module>
     </modules>
     <artifactId>dubbo-learning</artifactId>
     <version>0.0.1-SNAPSHOT</version>
