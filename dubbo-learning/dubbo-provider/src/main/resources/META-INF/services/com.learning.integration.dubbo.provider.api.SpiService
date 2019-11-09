@@ -1,0 +1,2 @@
+com.learning.integration.dubbo.provider.impl.SpiServiceImpl
+com.learning.integration.dubbo.provider.impl.SpiServiceImplTwo
