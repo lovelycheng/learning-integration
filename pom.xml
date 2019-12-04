@@ -22,6 +22,7 @@
 
     <modules>
         <module>dubbo-learning</module>
+        <module>learning.compiler</module>
     </modules>
 
     <dependencies>
