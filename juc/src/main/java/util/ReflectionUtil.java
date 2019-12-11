@@ -29,5 +29,6 @@ public class ReflectionUtil {
     }
 
     public static int workerCountOf(int c)  { return c & ((1 << 29) - 1); };
+    public static int runStateOf(int c)     { return c & ~((1 << 29) - 1); }
 
 }
