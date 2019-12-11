@@ -19,6 +19,12 @@ public class TPEDefaultTest {
         ExecutorService singleThreadScheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
+        ThreadPoolExecutor.DiscardOldestPolicy discardOldestPolicy = new ThreadPoolExecutor.DiscardOldestPolicy();
+        ThreadPoolExecutor.AbortPolicy abortPolicy = new ThreadPoolExecutor.AbortPolicy();
+        ThreadPoolExecutor.CallerRunsPolicy callerRunsPolicy = new ThreadPoolExecutor.CallerRunsPolicy();
+        ThreadPoolExecutor.DiscardPolicy discardPolicy= new ThreadPoolExecutor.DiscardPolicy();
+
+
     }
 
 }
