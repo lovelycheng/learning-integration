@@ -1,6 +1,4 @@
-package tech.lovecheng.learing.juc.ThreadPoolExecutorLearning.defaulttest;
-
-import com.sun.corba.se.spi.orbutil.threadpool.ThreadPoolManager;
+package tech.lovelycheng.learning.juc.threadpoolexecuter.defaulttest;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

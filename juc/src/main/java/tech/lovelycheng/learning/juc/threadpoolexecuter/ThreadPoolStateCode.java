@@ -1,4 +1,4 @@
-package tech.lovecheng.learing.juc.ThreadPoolExecutorLearning;
+package tech.lovelycheng.learning.juc.threadpoolexecuter;
 
 /**
  * @author chengtong

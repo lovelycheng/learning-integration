@@ -1,4 +1,4 @@
-package tech.lovecheng.learing.juc.ThreadPoolExecutorLearning;
+package tech.lovelycheng.learning.juc.threadpoolexecuter;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadFactory;

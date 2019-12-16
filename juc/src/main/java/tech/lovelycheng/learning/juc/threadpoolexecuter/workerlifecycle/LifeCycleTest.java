@@ -1,6 +1,5 @@
-package tech.lovecheng.learing.juc.ThreadPoolExecutorLearning.workerlifecycle;
+package tech.lovelycheng.learning.juc.threadpoolexecuter.workerlifecycle;
 
-import tech.lovecheng.learing.juc.ThreadPoolExecutorLearning.TPEHookExpend;
 import util.ReflectionUtil;
 
 import java.util.HashSet;
