@@ -6,24 +6,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author chengtong
  * @date 2019/12/18 10:22
+ *
+ * 一个基本的clh lock的实现
+ * 不需要在exit的时候自旋、
+ * 等上一个完成、复用node
+ *
+ *
  */
-public class CLHLock implements SpinLock {
+public class CLHSpinLock implements SpinLock {
 
-    ThreadLocal<Integer> predKey = new ThreadLocal<>();
+    private ThreadLocal<Integer> predKey = new ThreadLocal<>();
     private NodeQueue queue = new NodeQueue();
 
-    AtomicInteger index = new AtomicInteger(1);
-    AtomicInteger tail = new AtomicInteger(0);
-
-    private int atomicSwap2(int index) {
-        int h = tail.get();
-        while (!tail.compareAndSet(h, index)) {
-            h = tail.get();
-        }
-
-        return h;
-    }
-
+    private AtomicInteger index = new AtomicInteger(1);
+    private AtomicInteger tail = new AtomicInteger(0);
 
     @Override
     public void lock() {
@@ -32,7 +28,10 @@ public class CLHLock implements SpinLock {
             currentIndex = index.getAndIncrement();
         }
 
-        int pred = atomicSwap2(currentIndex);
+        int pred;
+        do{
+            pred = tail.get();
+        }while (!tail.compareAndSet(pred,currentIndex));
 
         Node mynode = queue.get(currentIndex);
 
@@ -54,50 +53,44 @@ public class CLHLock implements SpinLock {
         queue.get(currentIndex).setDone(true);
         int  pred = predKey.get();
         System.err.println(Thread.currentThread().getName() + " 释放锁，当前列表index：" + currentIndex);
+        /*
+         * 这一步是 复用 node
+         */
         ((WriterThread) Thread.currentThread()).getTicketLocal().set(pred);
     }
 
-    public class NodeQueue {
+    public static class NodeQueue {
 
-        volatile ArrayList<CLHLock.Node> nulls = new ArrayList<>();
+        volatile ArrayList<CLHSpinLock.Node> nulls = new ArrayList<>();
 
-        volatile ArrayList<CLHLock.Node> list = new ArrayList<>();
+        volatile ArrayList<CLHSpinLock.Node> list = new ArrayList<>();
 
         NodeQueue() {
-            for (int i = 0; i < 10000; i++) {
-                nulls.add(new CLHLock.Node());
+            for (int i = 0; i < 10000; i++) {//足够的nodes
+                nulls.add(new Node());
             }
             list.addAll(nulls);
         }
 
-        public CLHLock.Node get(int i) {
+        public CLHSpinLock.Node get(int i) {
             return list.get(i);
         }
 
     }
 
 
-    private class Node {
+    private static class Node {
 
-        private int next = 0;
-        private boolean done = true;
+        private boolean done = true; // String state = "done" || "wait" ;效果其实是一样的
 
         Node() {
         }
 
-        public int getNext() {
-            return next;
-        }
-
-        public void setNext(int next) {
-            this.next = next;
-        }
-
-        public boolean isDone() {
+        boolean isDone() {
             return done;
         }
 
-        public void setDone(boolean done) {
+        void setDone(boolean done) {
             this.done = done;
         }
     }

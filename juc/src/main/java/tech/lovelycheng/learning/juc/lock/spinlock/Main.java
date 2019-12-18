@@ -50,7 +50,7 @@ public class Main {
     }
 
     private static void clhSpinLock() {
-        SpinLockChannel spinLockChannel = new SpinLockChannel(new CLHLock());
+        SpinLockChannel spinLockChannel = new SpinLockChannel(new CLHSpinLock());
 
         new WriterThread("writer1",spinLockChannel).start();
         new WriterThread("writer2",spinLockChannel).start();
