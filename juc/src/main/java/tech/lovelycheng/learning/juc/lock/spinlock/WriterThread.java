@@ -33,8 +33,8 @@ public class WriterThread extends Thread{
 
         for(int i=0;i<1000;i++){
             try {
-                long time = random.nextLong();
-                Thread.sleep(time>0?time:0L);
+//                long time = random.nextLong();
+                Thread.sleep(random.nextInt(10000));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

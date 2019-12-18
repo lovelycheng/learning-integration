@@ -11,7 +11,9 @@ public class Main {
 
 //        fairSpinLockWithTicket();
 //        arrayBasedFairSpinLock();
-        linkedFairSpinLock();
+//        linkedFairSpinLock();
+        clhSpinLock();
+
     }
 
     private static void fairSpinLockWithTicket() {
@@ -33,6 +35,22 @@ public class Main {
     }
     private static void linkedFairSpinLock() {
         SpinLockChannel spinLockChannel = new SpinLockChannel(new MSCLockSpinLock());
+
+        new WriterThread("writer1",spinLockChannel).start();
+        new WriterThread("writer2",spinLockChannel).start();
+        new WriterThread("writer3",spinLockChannel).start();
+        new WriterThread("writer4",spinLockChannel).start();
+        new WriterThread("writer5",spinLockChannel).start();
+        new WriterThread("writer6",spinLockChannel).start();
+        new WriterThread("writer7",spinLockChannel).start();
+        new WriterThread("writer8",spinLockChannel).start();
+        new WriterThread("writer9",spinLockChannel).start();
+        new WriterThread("writer10",spinLockChannel).start();
+        new WriterThread("writer11",spinLockChannel).start();
+    }
+
+    private static void clhSpinLock() {
+        SpinLockChannel spinLockChannel = new SpinLockChannel(new CLHLock());
 
         new WriterThread("writer1",spinLockChannel).start();
         new WriterThread("writer2",spinLockChannel).start();
