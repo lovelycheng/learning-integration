@@ -33,18 +33,18 @@ public class MSCLockSpinLock implements SpinLock {
     volatile AtomicInteger tail = new AtomicInteger(0);
 
 
-    /**
-     * 这个updater是实现方法 原子级别的swap（更换数据并且返回原值）；
-     *
-     */
-    private static final AtomicReferenceFieldUpdater<MSCLockSpinLock,AtomicInteger> UPDATER =
-            AtomicReferenceFieldUpdater.newUpdater(MSCLockSpinLock.class, AtomicInteger.class,
-            "tail");
-
-
-    private int atomicSwap(int index) {
-        return UPDATER.getAndSet(this,new AtomicInteger(index)).get();
-    }
+//    /**
+//     * 这个updater是实现方法 原子级别的swap（更换数据并且返回原值）；
+//     *
+//     */
+//    private static final AtomicReferenceFieldUpdater<MSCLockSpinLock,AtomicInteger> UPDATER =
+//            AtomicReferenceFieldUpdater.newUpdater(MSCLockSpinLock.class, AtomicInteger.class,
+//            "tail");
+//
+//
+//    private int atomicSwap(int index) {
+//        return UPDATER.getAndSet(this,new AtomicInteger(index)).get();
+//    }
 
 
     /**
