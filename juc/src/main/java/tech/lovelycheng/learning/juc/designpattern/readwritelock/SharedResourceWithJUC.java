@@ -15,8 +15,6 @@ public class SharedResourceWithJUC extends SharedResource{
     ReentrantReadWriteLock.ReadLock readLock = readWriteLock.readLock();
     ReentrantReadWriteLock.WriteLock writeLock = readWriteLock.writeLock();
 
-
-
     @Override
     public String read(){
         readLock.lock();
@@ -32,6 +30,12 @@ public class SharedResourceWithJUC extends SharedResource{
         writeLock.lock();
         System.err.println(Thread.currentThread().getName()+" 获取写锁");
         StringBuffer stringBuffer = new StringBuffer(content);
+        try {
+            Thread.sleep(100000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         stringBuffer.append(newContent);
         this.content = stringBuffer.toString();
         System.err.println(Thread.currentThread().getName()+" 释放写锁");

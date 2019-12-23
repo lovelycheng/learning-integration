@@ -43,6 +43,11 @@ public class SharedResource {
     public void write(String newContent){
         writeLock();
         StringBuffer stringBuffer = new StringBuffer(content);
+        try {
+            Thread.sleep(10000000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         stringBuffer.append(newContent);
         this.content = stringBuffer.toString();
         unlockWriteLock();

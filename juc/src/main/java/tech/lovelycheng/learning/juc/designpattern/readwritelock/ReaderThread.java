@@ -20,14 +20,14 @@ public class ReaderThread extends Thread{
 
     @Override
     public void run() {
-        for(int i=0;i<1000000;i++){
+//        for(int i=0;i<1000000;i++){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             String content = sharedResource.read();
             System.err.println(content);
-        }
+//        }
     }
 }
