@@ -6,12 +6,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author chengtong
  * @date 2019/12/18 10:22
- *
+ * <p>
  * 一个基本的clh lock的实现
  * 不需要在exit的时候自旋、
  * 等上一个完成、复用node
- *
- *
  */
 public class CLHSpinLock implements SpinLock {
 
@@ -24,14 +22,14 @@ public class CLHSpinLock implements SpinLock {
     @Override
     public void lock() {
         Integer currentIndex = ((WriterThread) Thread.currentThread()).getTicketLocal().get();
-        if(currentIndex == null){
+        if (currentIndex == null) {
             currentIndex = index.getAndIncrement();
         }
 
         int pred;
-        do{
+        do {
             pred = tail.get();
-        }while (!tail.compareAndSet(pred,currentIndex));
+        } while (!tail.compareAndSet(pred, currentIndex));
 
         Node mynode = queue.get(currentIndex);
 
@@ -51,7 +49,9 @@ public class CLHSpinLock implements SpinLock {
     public void unlock() {
         int currentIndex = ((WriterThread) Thread.currentThread()).getTicketLocal().get();
         queue.get(currentIndex).setDone(true);
-        int  pred = predKey.get();
+        int pred = predKey.get();
+        queue.get(pred).setDone(false);
+
         System.err.println(Thread.currentThread().getName() + " 释放锁，当前列表index：" + currentIndex);
         /*
          * 这一步是 复用 node
