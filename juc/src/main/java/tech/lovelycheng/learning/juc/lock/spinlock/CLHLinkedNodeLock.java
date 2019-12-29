@@ -24,6 +24,7 @@ public class CLHLinkedNodeLock implements SpinLock {
         if(node == null){
             node = new Node(null,false,Thread.currentThread());
         }
+        node.done = false;
 
         Node pred = UPDATER.getAndSet(this,node);
 
