@@ -13,44 +13,44 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        System.err.println(Thread.currentThread().isInterrupted());
-//
-//        Thread.currentThread().interrupt();
-//
-//        System.err.println(Thread.currentThread().isInterrupted());
-//
-//        Thread.currentThread().interrupt();
-//
-//        System.err.println(Thread.currentThread().isInterrupted());
-//
-//        boolean us = Thread.interrupted();
-//
-//        System.err.println(Thread.currentThread().isInterrupted());
-//        System.err.println(us);
-//
-//        us = Thread.interrupted();
-//
-//        System.err.println(Thread.currentThread().isInterrupted());
-//        System.err.println(us);
+        System.err.println(Thread.currentThread().isInterrupted());
 
-//        Thread t= new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while(!Thread.currentThread().isInterrupted()){
-//                    try {
-//                        Thread.sleep(1000L);
-//                        System.err.println("thread is doing something");
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                        Thread.currentThread().interrupt();
-//                    }
-//                }
-//
-//                System.err.println("thread is interrupted");
-//
-//            }
-//        });
-//        t.start();
+        Thread.currentThread().interrupt();
+
+        System.err.println(Thread.currentThread().isInterrupted());
+
+        Thread.currentThread().interrupt();
+
+        System.err.println(Thread.currentThread().isInterrupted());
+
+        boolean us = Thread.interrupted();
+
+        System.err.println(Thread.currentThread().isInterrupted());
+        System.err.println(us);
+
+        us = Thread.interrupted();
+
+        System.err.println(Thread.currentThread().isInterrupted());
+        System.err.println(us);
+
+        Thread t= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(!Thread.currentThread().isInterrupted()){
+                    try {
+                        Thread.sleep(1000L);
+                        System.err.println("thread is doing something");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
+                    }
+                }
+
+                System.err.println("thread is interrupted");
+
+            }
+        });
+        t.start();
 
         multiPhaseThread();
 
