@@ -52,9 +52,6 @@ public class Channel {
         return h;
     }
 
-
-
-
     private static class Request implements Runnable{
 
         Request next;
@@ -85,7 +82,6 @@ public class Channel {
             this.channel = channel;
             this.name = name;
         }
-
 
         @Override
         public void run() {
