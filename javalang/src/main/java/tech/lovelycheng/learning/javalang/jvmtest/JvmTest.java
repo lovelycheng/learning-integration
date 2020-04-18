@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 public class JvmTest {
@@ -32,15 +33,18 @@ public class JvmTest {
 
         System.err.println("before test ");
 
-        for (int i = 0; i < 25; i++) {
-//            boolean expectBiasAbleAndRevoke = i<9;
-//            boolean expectBiasLockReBias = i==9;
-//            boolean expectBiasAbleAndRevoke2 = i>9 && i<19;
-//            boolean expectBiasLockForbidden = i==19;
-//            boolean expectClassUnBias = i>19;
+        Monitor revokeAndBiasTest = new Monitor();
 
+        synchronized (revokeAndBiasTest){
+
+        }
+
+        Monitor[] monitors = new Monitor[25];
+
+        for (int i = 0; i < 25; i++) {
             System.err.println("========================================index = "+ i + "========================================");
             final Monitor a = new Monitor();
+            monitors[i] = a;
             synchronized (a) {
                 out.println("Main thread :0x" + printHeader(a));
                 out.println("a markword " + printBinaryHeader(a));
@@ -57,8 +61,21 @@ public class JvmTest {
                 }
                 return null;
             }).get();
+            if(i==9){
+                synchronized (monitors[0]){
+                    err.println("main thread reget monitor[0],with lock " + printBinaryHeader(monitors[0]));
+                }
+            }
         }
 
+        err.println("-----------revokeAndBiasTest-------------");
+        thread.submit(() -> {
+            synchronized (revokeAndBiasTest) {
+                out.println("Work thread :0x" + printHeader(revokeAndBiasTest));
+                out.println("a markword " + printBinaryHeader(revokeAndBiasTest));
+            }
+            return null;
+        }).get();
 
         thread.shutdown();
     }
