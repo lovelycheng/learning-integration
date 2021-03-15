@@ -8,9 +8,12 @@
 
     <!-- consumer's application name, used for tracing dependency relationship (not a matching criterion),
     don't set it same as provider -->
-    <dubbo:application name="demo-consumer"/>
+    <dubbo:application name="demo-consumer">
+        <dubbo:parameter key="qos.port" value="3333"/>
+    </dubbo:application>
 
-    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
     <dubbo:protocol name="dubbo" port="20880"/>
     <!-- generate proxy for the remote service, then demoService can be used in the same way as the
     local regular interface -->

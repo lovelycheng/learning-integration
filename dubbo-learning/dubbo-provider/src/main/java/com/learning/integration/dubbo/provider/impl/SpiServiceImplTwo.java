@@ -12,6 +12,6 @@ public class SpiServiceImplTwo implements SpiService {
 
     @Override
     public void saySpi() {
-      log.error("====================  ppp ===================");
+        log.error("====================  ppp ===================");
     }
 }

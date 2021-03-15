@@ -1,10 +1,10 @@
 package com.learning.integration.dubbo.consumer.service;
 
 import com.learning.integration.dubbo.provider.api.DemoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 /**
  * @author chengtong
@@ -13,14 +13,12 @@ import javax.annotation.PostConstruct;
 @Service
 public class UserInterface {
 
-    @Autowired
+    @Resource
     DemoService demoService;
 
     @PostConstruct
-    public void sss(){
+    public void sss() {
         demoService.sayHello("dubbo ");
     }
-
-
 
 }

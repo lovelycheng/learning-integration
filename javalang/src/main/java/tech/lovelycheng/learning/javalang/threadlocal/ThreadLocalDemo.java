@@ -26,6 +26,7 @@ public class ThreadLocalDemo {
         map.setAccessible(true);
         Object o = map.get(Thread.currentThread());// thread.threadlocals
 
+        System.out.println(o);
 
     }
 
@@ -34,15 +35,15 @@ public class ThreadLocalDemo {
         threadLocal.set("本地变量");
         System.err.println("threadlocalId:"+threadLocal);
         MyThread e = new MyThread(() -> {
-//            threadLocal.set("eee");
-//            try {
-//                Thread.sleep(10000L);
-//            } catch (InterruptedException ex) {
-//                ex.printStackTrace();
-//            }
-//            System.err.println(threadLocal.get());
+            threadLocal.set("eee");
+            try {
+                Thread.sleep(10000L);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            System.gc();
+            System.err.println(threadLocal.get());
         });
-        System.gc();
 
         System.err.println(threadLocal.get());
         e.start();

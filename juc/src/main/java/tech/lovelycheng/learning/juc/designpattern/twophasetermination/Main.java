@@ -33,22 +33,19 @@ public class Main {
         System.err.println(Thread.currentThread().isInterrupted());
         System.err.println(us);
 
-        Thread t= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(!Thread.currentThread().isInterrupted()){
-                    try {
-                        Thread.sleep(1000L);
-                        System.err.println("thread is doing something");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Thread.currentThread().interrupt();
-                    }
+        Thread t= new Thread(() -> {
+            while(!Thread.currentThread().isInterrupted()){
+                try {
+                    Thread.sleep(1000L);
+                    System.err.println("thread is doing something");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
-
-                System.err.println("thread is interrupted");
-
             }
+
+            System.err.println("thread is interrupted");
+
         });
         t.start();
 

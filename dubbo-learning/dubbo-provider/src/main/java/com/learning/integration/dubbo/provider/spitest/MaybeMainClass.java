@@ -1,9 +1,10 @@
-package com.learning.integration.dubbo.provider.impl;
+package com.learning.integration.dubbo.provider.spitest;
 
 import com.learning.integration.dubbo.provider.api.SpiService;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.ServiceLoader;
 
 /**
@@ -23,7 +24,6 @@ public class MaybeMainClass implements SmartLifecycle {
 
     @Override
     public void stop() {
-
     }
 
     @Override
